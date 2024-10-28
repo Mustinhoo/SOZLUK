@@ -1,24 +1,25 @@
-modern_to_traditional = {
-    "selfie": "kendi fotoğrafını çekmek",
-    "hashtag": "bir kelimenin önüne '#' işareti eklenerek konu başlığı oluşturma",
-    "influencer": "internet üzerinde başkalarını etkileyen kişi",
-    "dm": "doğrudan mesaj",
-    "emoji": "duyguları ifade eden küçük simgeler",
-    "viral": "hızla yayılan içerik",
-    "stream": "çevrimiçi içerik izlemek veya dinlemek",
-    "meme": "internette hızla yayılan ve genellikle komik içerik",
-    "lol": "komik bir şeye verilen cevap",
-    "sheesh": "onaylamamak",
-    "aggro". "agresifleşmek/sinirlenmek",
+import discord
+from discord.ext import commands
 
-}
+# Botun ayarları
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix='$', intents=intents)
 
+@bot.event
+async def on_ready():
+    print(f'{bot.user} olarak giriş yaptık')
 
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Merhaba! Ben {bot.user}, bir Discord sohbet botuyum!')
 
-kelime = input("Anlamını öğrenmek istediğiniz modern kelimeyi girin: ")
+@bot.command()
+async def heh(ctx, count_heh=5):
+    await ctx.send("he" * count_heh)
 
+@bot.command()
+async def slap(ctx, *, reason: str):  # Burada Slapper yerine str kullanıldı
+    await ctx.send(reason)
 
-if kelime in modern_to_traditional:
-    print(f"'{kelime}' kelimesinin geleneksel açıklaması: {modern_to_traditional[kelime]}")
-else:
-    print(f"'{kelime}' için bir açıklama bulunamadı.")
+bot.run("GİZLİ TOKEN BURAYA")
